@@ -9,9 +9,17 @@ from telethon.sessions import StringSession
 # --- A helper function to safely read and clean integer variables ---
 def get_int_env(key, default=None):
     val = os.environ.get(key)
-    if val is None: return default
+    if val is None:
+        return default
+    
     # This removes any character that is NOT a digit or a minus sign
-    return int(re.sub(r'[^\d-]', '', val))
+    cleaned_val = re.sub(r'[^\d-]', '', val)
+    
+    # ** FIX: If the cleaned value is empty, return the default instead of crashing **
+    if cleaned_val:
+        return int(cleaned_val)
+    
+    return default
 
 # --- CONFIGURATION - Loaded from Railway Environment Variables ---
 API_ID = get_int_env("API_ID")
