@@ -136,7 +136,7 @@ async def photo_worker():
             daily_counter += 1
             history_counter += 1
             
-            delay = random.randint(5, 6)
+            delay = random.randint(4, 5)
             print(f"  -> Waiting for {delay} seconds before next photo...")
             await asyncio.sleep(delay)
         except Exception as e:
